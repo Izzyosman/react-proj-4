@@ -7,6 +7,7 @@ import Home from './components/Home'
 import Auth from './components/Auth'
 import Form from './components/Form'
 import Profile from './components/Profile'
+import SearchBar from './components/SearchBar'
 
 const App = () => {
   const {state} = useContext(AuthContext)
