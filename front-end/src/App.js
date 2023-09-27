@@ -1,14 +1,14 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useState, useContext } from 'react'; // Import useState here
 import './App.css'
-import { useContext } from 'react'
 import AuthContext from './store/authContext'
 import Header from './components/Header'
 import Home from './components/Home'
 import Auth from './components/Auth'
 import Form from './components/Form'
 import Profile from './components/Profile'
-import FavoritesList from './components/FavoritesList';
+import FavoritesList from '.components/FavoritesList' 
+
 // import YelpSearch from './components/YelpSearch' 
 
 function App() {
