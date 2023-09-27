@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
+import { useState, useContext } from 'react'; // Import useState here
 import './App.css'
 import { useContext } from 'react'
 import AuthContext from './store/authContext'
@@ -7,14 +8,27 @@ import Home from './components/Home'
 import Auth from './components/Auth'
 import Form from './components/Form'
 import Profile from './components/Profile'
+import FavoritesList from './components/FavoritesList';
 // import YelpSearch from './components/YelpSearch' 
 
-const App = () => {
-  const {state} = useContext(AuthContext)
-  return (
-    <div className='app'>
-      <Header/>
-      <Routes>
+function App() {
+  const [favorites, setFavorites] = useState([]);
+  
+  const addToFavorites = (restaurant) => {
+    setFavorites([...favorites, restaurant]);
+  };
+
+const removeFromFavorites = (restaurant) => {
+  const updatedFavorites = favorites.filter((r) => r.id !== restaurant.id); 
+  setFavorites(updatedFavorites);
+}; 
+
+const { state } = useContext(AuthContext);
+
+return (
+  <div className='app'>
+    <Header />
+    <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/auth' element={!state.token ? <Auth/> : <Navigate to="/" />}/>
         <Route path='/form' element={state.token ? <Form/> : <Navigate to="/auth" />}/>
