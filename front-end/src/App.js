@@ -7,7 +7,7 @@ import Home from './components/Home'
 import Auth from './components/Auth'
 import Form from './components/Form'
 import Profile from './components/Profile'
-import FavoritesList from '.components/FavoritesList' 
+import FavoritesList from './components/FavoritesList'  
 
 // import YelpSearch from './components/YelpSearch' 
 
@@ -33,6 +33,7 @@ return (
         <Route path='/auth' element={!state.token ? <Auth/> : <Navigate to="/" />}/>
         <Route path='/form' element={state.token ? <Form/> : <Navigate to="/auth" />}/>
         <Route path='/profile' element={state.token ? <Profile/> : <Navigate to="/" />}/>
+        <Route path='/favorite' element={!state.token ? <FavoritesList/> : <Navigate to="/auth" />}/> 
         <Route path='*' element={<Navigate to='/'/>}/>
       </Routes>
     </div>
