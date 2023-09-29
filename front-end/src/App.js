@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, Link } from 'react-router-dom'
 import { useState, useContext } from 'react'; // Import useState here
 import './App.css'
 import AuthContext from './store/authContext'
@@ -28,6 +28,14 @@ const { state } = useContext(AuthContext);
 return (
   <div className='app'>
     <Header />
+     {/* Add a link to the FavoritesList */}
+     <nav>
+        <ul>
+          <li>
+            <Link to="/favorite">Favorite Restaurants List</Link>
+          </li>
+        </ul>
+      </nav>
     <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/auth' element={!state.token ? <Auth/> : <Navigate to="/" />}/>
