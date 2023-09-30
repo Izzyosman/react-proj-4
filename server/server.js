@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 4005
 // const {User} = require('./models/user')
 // const {Post} = require('./models/post')
 
-// const {getAllPosts, getCurrentUserPosts, addPost, editPost, deletePost} = require('./controllers/posts')
+const {getAllPosts, getCurrentUserPosts, addPost, editPost, deletePost} = require('./controllers/posts')
 // const {register, login} = require('./controllers/auth')
 // const {isAuthenticated} = require('./middleware/isAuthenticated')
 
@@ -29,6 +29,9 @@ const PORT = process.env.PORT || 4005
 
 app.use(cors()); // Enable CORS for all routes
 
+app.get('/api/favorites/', getAllPosts)
+app.post('/api/favorites/:id', addPost);
+app.delete('/api/favorites/:id', deletePost);
 
 app.get('/yelp-api', async (req, res) => {
   try {

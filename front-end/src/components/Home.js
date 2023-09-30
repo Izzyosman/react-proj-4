@@ -1,7 +1,5 @@
 import {useState, useEffect, useContext} from 'react'
-import axios from 'axios'
 import AuthContext from '../store/authContext'
-// import YelpSearch from './YelpSearch'
 import searchYelp from '../api/searchYelp'
 import '../assets/style.css'
 
@@ -9,39 +7,34 @@ const Home = () => {
     const { state: { userId, token } } = useContext(AuthContext);
     const [businesses, setBusinesses] = useState([]); // State to store Yelp businesses
     const [hasSearched, setHasSearched] = useState(false);
-
-    const [posts, setPosts] = useState([])
-
-    // const [term, setTerm] = useState('');
     const [location, setLocation] = useState('');
 
-    // useEffect(() => {
-    //     if (location) {
-    //       searchYelp(location)
-    //         .then((data) => {
-    //             // setPosts(data);
-    //             console.log(data)
-    //         })
-    //         .catch((error) => {
-    //           // Handle error
-    //         });
-    //     }
-    // }, [location]);
+    const addToFavorites = (business) => {
+      const favoriteData = {
+        businessId: business.id,
+        imageUrl: business.image_url,
+        name: business.name,
+        address: business.location.address1,
+      };
+  
+      fetch('http://localhost:4005/api/add-to-favorites', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ favoriteData, userId }), // Include the business data and user ID
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Added to favorites:', data);
+          // Optionally, you can update the UI to reflect that the restaurant has been added to favorites
+        })
+        .catch((error) => {
+          console.error('Error adding to favorites:', error);
+          // Handle error
+        });
+    };
 
-    // useEffect(() => {
-    //     axios.get('/posts')
-    //     .then(res => {
-    //         if (userId) {
-    //             const otherUsersPosts = res.data.filter(post => +userId !== post.userId)
-    //             setPosts(otherUsersPosts)
-    //         } else {
-    //             setPosts(res.data)
-    //         }
-    //     })
-    //     .catch(err => {
-    //         console.log(err)
-    //     })
-    // }, [userId])
 
     const handleLocationSubmit = () => {
         if (location) {
@@ -65,6 +58,7 @@ const Home = () => {
           <div className="business-details">
             <h2>{business.name}</h2>
             <p>{business.location.address1}</p>
+            <button className="add-to-favorites-button">Add to Favorites</button>
           </div>
         </div>
     ));
