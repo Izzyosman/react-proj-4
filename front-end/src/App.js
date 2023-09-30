@@ -29,13 +29,11 @@ return (
   <div className='app'>
     <Header />
      {/* Add a link to the FavoritesList */}
-     <nav>
-        <ul>
-          <li>
-            <Link to="/favorite">Favorite Restaurants List</Link>
-          </li>
-        </ul>
-      </nav>
+      {/* <ul>
+        <button>
+          <Link to="/favorite">Favorite Restaurants List</Link>
+        </button>
+      </ul> */}
     <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/auth' element={!state.token ? <Auth/> : <Navigate to="/" />}/>

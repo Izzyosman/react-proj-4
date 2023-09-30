@@ -32,4 +32,14 @@
     flex-direction: column;
     justify-content: center;
   }
+
+  .add-to-favorites-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 12px; /* smaller padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px; /* smaller font size */
+  }
   

@@ -27,6 +27,9 @@ const Header = () => {
                                 <NavLink style={styleActiveLink} to='/'>Home</NavLink>
                             </li>
                             <li>
+                                <NavLink style={styleActiveLink} to='favorite'>Favorites</NavLink>
+                            </li>
+                            <li>
                                 <NavLink style={styleActiveLink} to='profile'>Profile</NavLink>
                             </li>
                             <li>
