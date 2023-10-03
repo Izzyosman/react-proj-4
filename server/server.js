@@ -1,45 +1,35 @@
 const express = require('express')
+require("dotenv").config();
 const cors = require('cors')
 const axios = require('axios');
 const app = express()
 const PORT = process.env.PORT || 4005
-// const {sequelize} = require('./util/database')
-// const {User} = require('./models/user')
-// const {Post} = require('./models/post')
+const sequelize = require('./util/database');
+const { isAuthenticated } = require('./middleware/isAuthenticated');
 
-const {getAllPosts, getCurrentUserPosts, addPost, editPost, deletePost} = require('./controllers/posts')
-// const {register, login} = require('./controllers/auth')
-// const {isAuthenticated} = require('./middleware/isAuthenticated')
+const auth = require('./controllers/auth');
+const favorites = require('./controllers/favorites');
+require('./models/initModels.js');
 
-// app.use(express.json())
-// app.use(cors())
+app.use(cors());
+app.use(express.json());
 
-// User.hasMany(Post)
-// Post.belongsTo(User)
+// favorite crud routes
+app.get('/api/favorites/', isAuthenticated, favorites.getAllFavorites);
+app.post('/api/favorites/:id', isAuthenticated, favorites.addFavorite);
+app.delete('/api/favorites/:id', isAuthenticated, favorites.deleteFavorite);
 
-// app.post('/register', register)
-// app.post('/login', login)
-
-// app.get('/posts', getAllPosts)
-
-// app.get('/userposts/:userId', getCurrentUserPosts)
-// app.post('/posts', isAuthenticated, addPost)
-// app.put('/posts/:id', isAuthenticated, editPost)
-// app.delete('/posts/:id', isAuthenticated, deletePost)
-
-app.use(cors()); // Enable CORS for all routes
-
-app.get('/api/favorites/', getAllPosts)
-app.post('/api/favorites/:id', addPost);
-app.delete('/api/favorites/:id', deletePost);
+// User auth
+app.post('/api/register', auth.register);
+app.post('/api/login', auth.login);
 
 app.get('/yelp-api', async (req, res) => {
   try {
     let qParams = '?location=' + req.query.location
-    const response = await axios.get('https://api.yelp.com/v3/businesses/search'+qParams, {
+    const response = await axios.get('https://api.yelp.com/v3/businesses/search' + qParams, {
       headers: {
         accept: 'application/json',
-        Authorization: 'Bearer jnZqza1cS0hT1T-O3mhZfv9Gh0UpIxxL-gxf22MvZAcvxtj2Q5qPjZFh-ig7SFEhMS-ifZ1cpzecYyQcauVjVfWaNAJp48Zzrnf6OpjYWVdsCuGlBEaurkXCYAMOZXYx',
+        Authorization: 'Bearer ' + process.env.Yelp_Token,
       },
       // params: req.query, // Forward query parameters from the client
     });
@@ -51,12 +41,8 @@ app.get('/yelp-api', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Proxy server is listening on port ${PORT}`);
-});
-
-// sequelize.sync()
-// .then(() => {
-//     app.listen(PORT, () => console.log(`db sync successful & server running on port ${PORT}`))
-// })
-// .catch(err => console.log(err))
+sequelize.sync()
+.then(() => {
+    app.listen(PORT, () => console.log(`db sync successful & server running on port ${PORT}`))
+})
+.catch(err => console.log(err));
