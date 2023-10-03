@@ -24,6 +24,7 @@ app.post('/api/register', auth.register);
 app.post('/api/login', auth.login);
 
 app.get('/yelp-api', async (req, res) => {
+  let qParams = ''; // Initialize qParams here
   try {
     let qParams = '?location=' + req.query.location
     const response = await axios.get('https://api.yelp.com/v3/businesses/search' + qParams, {
@@ -37,6 +38,7 @@ app.get('/yelp-api', async (req, res) => {
     // console.log(res.json(response.data))
   } catch (error) {
     console.error('Error in Yelp API request:', error.message);
+    console.error('Request URL:', 'https://api.yelp.com/v3/businesses/search' + qParams);
     res.status(500).json({ error: 'Oops' });
   }
 });
@@ -45,4 +47,6 @@ sequelize.sync()
 .then(() => {
     app.listen(PORT, () => console.log(`db sync successful & server running on port ${PORT}`))
 })
-.catch(err => console.log(err));
+.catch(err => {
+  console.error('Error syncing Sequelize models:', err);
+});
