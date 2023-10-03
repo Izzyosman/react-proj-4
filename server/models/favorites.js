@@ -15,7 +15,7 @@ const Favorite = sequelize.define("favorite", {
   userId: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'users', // 'users' refers to the table name for User model, sequelize converts all table names to plural by default
+      model: 'users',
       key: 'id',
     },
   },
