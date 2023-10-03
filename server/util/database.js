@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
+// Establish database connection
+const sequelize = new Sequelize(process.env.CONNECTION_STRING, {
   dialect: 'postgres',
   protocol: 'postgres',
   dialectOptions: {
@@ -11,6 +12,5 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
     }
   }
 });
-
 
 module.exports = sequelize;
