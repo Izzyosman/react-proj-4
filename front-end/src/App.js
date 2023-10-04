@@ -7,7 +7,10 @@ import Home from './components/Home'
 import Auth from './components/Auth'
 import Form from './components/Form'
 import Profile from './components/Profile'
-import FavoritesList from './components/FavoritesList'  
+import FavoritesList from './components/FavoritesList'
+
+
+
 
 // import YelpSearch from './components/YelpSearch' 
 

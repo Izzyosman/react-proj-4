@@ -69,7 +69,11 @@ const Home = () => {
     return (
         <main>
         <div>
-            <h1>Enter Zip Code to Search Restaurants</h1>
+            <h1>Welcome! </h1>
+            <br /> 
+            <h1>This is a restaurant planner that manages your favorite restaurants.<h1></h1>
+   
+             Enter a zipcode to find restaurants! </h1>
             <br />
             <input
             type="text"
@@ -87,6 +91,8 @@ const Home = () => {
                 <p>No results found</p>
             )}
             </div>
+
+            
         )}
         </main>
     );
