@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useContext } from "react";
 import axios from "axios";
 import AuthContext from "../store/authContext";
@@ -12,8 +13,9 @@ const Auth = () => {
     e.preventDefault();
     let body = { username, password };
     axios
-      .post(register ? "/register" : "/login", body)
+      .post(register ? "http://localhost:4005/api/register" : "/api/login", body)
       .then((res) => {
+        console.log(res)
         dispatch({ type: "LOGIN", payload: res.data });
       })
       .catch((err) => {
@@ -41,3 +43,4 @@ const Auth = () => {
 };
 
 export default Auth;
+
