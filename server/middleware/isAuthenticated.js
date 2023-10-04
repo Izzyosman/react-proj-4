@@ -4,28 +4,29 @@ const {SECRET} = process.env
 
 module.exports = {
   isAuthenticated: (req, res, next) => {
-    const headerToken = req.get('Authorization')
-
-    if (!headerToken) {
+    const token = req.get('Authorization');
+    
+    if (!token) {
       res.status(401).send("Token missing.");
       return;
     }
 
-    let token
+    let decodedToken;
 
     try {
-      token = jwt.verify(headerToken, SECRET)
+      decodedToken = jwt.verify(token, SECRET);
     } catch (err) {
+      console.log(err.message);
       res.status(500).send("Invalid token.");
       return;
     }
 
-    if (!token) {
+    if (!decodedToken) {
       res.status(401).send("Not authenticated.");
       return;
     }
 
-    req.user = token;
+    req.user = decodedToken;
     next();
   }
 }
