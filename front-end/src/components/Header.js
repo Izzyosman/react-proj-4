@@ -1,17 +1,25 @@
+import React from 'react';
 import {useContext} from 'react'
-import {NavLink} from 'react-router-dom'
+import {NavLink, useNavigate} from 'react-router-dom';
+
 
 import AuthContext from '../store/authContext'
 import logo from '../assets/dm-logo-white.svg'
 
 const Header = () => {
     const {state, dispatch} = useContext(AuthContext)
+    const navigate = useNavigate();
 
     const styleActiveLink = ({ isActive }) => {
-        return {
-            color: isActive ? '#f57145' : ''
-        }
+      return {
+          color: isActive ? '#f57145' : ''
+      }
     }
+
+    const handleLogout = () => {
+      dispatch({type: 'LOGOUT'});
+      navigate('/')
+    };
 
     return (
         <header className='header flex-row'>
@@ -30,13 +38,7 @@ const Header = () => {
                                 <NavLink style={styleActiveLink} to='favorite'>Favorites</NavLink>
                             </li>
                             <li>
-                                <NavLink style={styleActiveLink} to='profile'>Profile</NavLink>
-                            </li>
-                            <li>
-                                <NavLink style={styleActiveLink} to='form'>Add Post</NavLink>
-                            </li>
-                            <li>
-                                <button className='logout-btn' onClick={() => dispatch({type: 'LOGOUT'})}>Logout</button>
+                                <button className='logout-btn' onClick={handleLogout}>Logout</button>
                             </li>
                         </ul>
                     ) : (
