@@ -1,5 +1,3 @@
-
-  
 .card-image {
     width: 200px;
     height: 200px;
@@ -36,10 +34,17 @@
   .add-to-favorites-button {
     background-color: #4CAF50;
     color: white;
-    padding: 6px 12px; /* smaller padding */
+    padding: 6px 12px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 12px; /* smaller font size */
+    font-size: 12px;
   }
-  
+
+
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
