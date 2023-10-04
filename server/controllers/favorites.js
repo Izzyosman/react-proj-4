@@ -8,7 +8,7 @@ module.exports = {
         include: [
           {
             model: User,
-            required: false, // temp change
+            required: false,
             attributes: ['username'],
           },
         ],
@@ -23,10 +23,10 @@ module.exports = {
   addFavorite: async (req, res) => {
     try {
       const userId = req.user.id;
-      const favoriteData = req.body;
-      console.log(favoriteData);
-      const favorite = await Favorite.create({ ...favoriteData, userId });
-      res.status(200).send(favorite);
+      const favoriteData = req.body.favoriteData;
+      const data = {...favoriteData, userId: userId};
+      const favResponse = await Favorite.create(data);
+      res.status(200).send(favResponse);
     } catch (error) {
       console.error(error);
       res.status(400).send(error);
@@ -35,9 +35,9 @@ module.exports = {
 
   deleteFavorite: async (req, res) => {
     try {
-      const { id } = req.params;
+      const id = req.params.id;
       await Favorite.destroy({ where: { id: +id } });
-      res.sendStatus(200);
+      res.status(200).json({ message: 'Successfully deleted' });
     } catch (error) {
       console.log('ERROR IN deleteFavorite');
       console.log(error);
