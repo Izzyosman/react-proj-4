@@ -8,10 +8,22 @@ const Favorite = sequelize.define("favorite", {
     allowNull: false,
     primaryKey: true,
   },
-  businessId: DataTypes.STRING,
-  imageUrl: DataTypes.STRING,
-  name: DataTypes.STRING,
-  address: DataTypes.STRING,
+  businessId: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  imageUrl: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  address: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   userId: {
     type: DataTypes.INTEGER,
     references: {
